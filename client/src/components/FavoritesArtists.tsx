@@ -1,29 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Image, VStack, HStack, Text, Box, Pressable, ScrollView } from "native-base";
 import ArrowSvg from '@assets/arrow.svg';
 import { useNavigation } from '@react-navigation/native';
-import { useArtistContext } from '@contexts/ArtistContext';
-import { getUpcomingEvents } from '@services/ticketmasterService';
+import { useArtistContext } from '../contexts/ArtistContext';
+import { getUpcomingEvents } from '../services/ticketmasterService';
 
-export function FavoritesArtists({ artist }) {
-  const navigation = useNavigation();
-  const { selectedArtists: globalSelectedArtists } = useArtistContext();
+//TODO: Make the page work. Not yet plugged in
+interface SvgProps {
+  width: number;
+  height: number;
+  fill: string;
+  top: number;
+  right: number;
+  position?: string;
+}
+type Artist = PropsWithChildren & {
+  artist: any;
+}
+
+export function FavoritesArtists({ artist }: Artist) {
+  const navigation: any = useNavigation();
+  // const { selectedArtists: globalSelectedArtists } = useArtistContext();
   const [eventsData, setEventsData] = useState([]);
-  const { favoriteArtistsNames } = useArtistContext();
+  // const { favoriteArtistsNames } = useArtistContext();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const events = await getUpcomingEvents();
+  // useEffect(() => {
+  //   const fetchData = async (): Promise <any> => {
+  //     try {
+
+  //       //TODO: Need to pass 2 arguments in
+  //       const events = await getUpcomingEvents();
 
 
-      setEventsData(events);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
+  //     setEventsData(events);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
 
   return (
@@ -89,7 +104,7 @@ export function FavoritesArtists({ artist }) {
                       </VStack>
                     </HStack>
 
-                    <ArrowSvg width={24} height={24} fill="#FFFFFF" position="absolute" top={62} right={6} />
+                    <ArrowSvg width={24} height={24} fill="#FFFFFF" style={{ position: 'absolute', top: 62, right: 6 }} />
                   </VStack>
                 </HStack>
               </Box>

@@ -1,7 +1,9 @@
-import { apiKey } from '.././../secret';
+import { apiKey } from '../../../secret';
 
 
-async function getEvents(location, date) {
+
+
+async function getEvents(location, date): Promise <any> {
 
   try {
     const response = await fetch(

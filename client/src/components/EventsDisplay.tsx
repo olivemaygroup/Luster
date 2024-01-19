@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { PropsWithChildren, useEffect, useState } from "react";
 import { Image, VStack, Text, Box, HStack, ScrollView, Pressable } from "native-base";
 import { useNavigation } from '@react-navigation/native';
-import { getEvents } from '@services/ticketmasterService';
+import { getEvents } from '../services/ticketmasterService';
 
+type EDPropsType = PropsWithChildren & {
+  location: any;
+  date: any;
+}
 
-export function EventsDisplay({location, date}) {
-  const navigation = useNavigation();
-  const [eventsData, setEventsData] = useState([]);
+export function EventsDisplay({location, date}: EDPropsType): React.FC {
+  const navigation: any = useNavigation();
+  const [eventsData, setEventsData] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise <void> => {
       try {
         const events = await getEvents(location, date);
         setEventsData(events);

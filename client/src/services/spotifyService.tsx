@@ -1,11 +1,14 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface SpotifyCredentials {
+  accessToken: string;
+  error: any;
+}
 
-export async function getSpotifyAccessToken() {
+export async function getSpotifyAccessToken(): Promise<string | null> {
   try {
-
     const response = await fetch('http://192.168.0.11:3001/api/spotify-credentials');
-    const data = await response.json();
+    const data: SpotifyCredentials = await response.json();
 
     if (!response.ok) {
       console.error(`Error getting Spotify credentials: ${data.error}`);
@@ -19,7 +22,7 @@ export async function getSpotifyAccessToken() {
   }
 }
 
-export async function getTopArtists() {
+export async function getTopArtists(): Promise<any | null> {
   try {
     const yourAccessToken = await getSpotifyAccessToken();
 
@@ -41,8 +44,7 @@ export async function getTopArtists() {
       return null;
     }
 
-
-    AsyncStorage.setItem('topArtists', JSON.stringify(data));
+    await AsyncStorage.setItem('topArtists', JSON.stringify(data));
 
     return data;
   } catch (error) {
@@ -51,7 +53,7 @@ export async function getTopArtists() {
   }
 }
 
-export async function getAllArtists() {
+export async function getAllArtists(): Promise<any | null> {
   try {
     const yourAccessToken = await getSpotifyAccessToken();
 
@@ -66,7 +68,6 @@ export async function getAllArtists() {
       },
     });
 
-
     const data = await response.json();
 
     if (!response.ok) {
@@ -74,8 +75,7 @@ export async function getAllArtists() {
       return null;
     }
 
-
-    AsyncStorage.setItem('allArtists', JSON.stringify(data));
+    await AsyncStorage.setItem('allArtists', JSON.stringify(data));
 
     return data;
   } catch (error) {
@@ -83,6 +83,3 @@ export async function getAllArtists() {
     return null;
   }
 }
-
-
-

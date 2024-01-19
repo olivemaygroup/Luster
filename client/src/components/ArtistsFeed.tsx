@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, Box, Pressable, HStack, ScrollView, Center } from "native-base";
 import { useNavigation } from '@react-navigation/native';
-import { getTopArtists } from '@services/spotifyService';
-
+import { getTopArtists } from '../services/spotifyService.js';
 
 
 export function ArtistsFeed({ ...rest }) {
-  const [topArtists, setTopArtists] = useState([]);
-  const navigation = useNavigation();
+  const [topArtists, setTopArtists] = useState<any[]>([]);
+  const navigation: any = useNavigation();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise <any> => {
       try {
         const artists = await getTopArtists();
         console.log('Top Artists:', artists);
@@ -24,11 +23,10 @@ export function ArtistsFeed({ ...rest }) {
   }, []);
 
 
-
   return (
     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
       <HStack>
-        {topArtists.map((artist, index) => (
+        {topArtists.map((artist: any, index: any) => (
           <Pressable
             key={index}
             margin={2}

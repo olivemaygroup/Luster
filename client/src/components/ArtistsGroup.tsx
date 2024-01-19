@@ -1,22 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { Key, PropsWithChildren, useEffect, useState } from 'react';
 import { Image, HStack, Text, Box, Pressable, ScrollView, Center, SimpleGrid } from "native-base";
-import CheckSvg from '@assets/check.svg';
+import CheckSvg from '../assets/check.svg';
 import { useNavigation } from '@react-navigation/native';
-import { getAllArtists } from '@services/spotifyService';
+import { getAllArtists } from '../services/spotifyService';
 import { LongPressGestureHandler, State, GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useArtistContext } from '@contexts/ArtistContext';
+import { useArtistContext } from '../contexts/ArtistContext';
 
-export function ArtistsGroup({ addSelectedArtist, clearSelectedArtists, ...rest }) {
-  const [topArtists, setTopArtists] = useState([]);
-  const [selectedArtists, setSelectedArtists] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false);
-  const navigation = useNavigation();
-  const { selectedArtists: globalSelectedArtists } = useArtistContext();
+type AGPropsType = PropsWithChildren & {
+  addSelectedArtist: (artist: any)=>void;
+  clearSelectedArtists: (artist: any)=>void;
+}
+
+export function ArtistsGroup({ addSelectedArtist, clearSelectedArtists, ...rest }: AGPropsType) {
+  const [topArtists, setTopArtists]: any = useState([]);
+  const [selectedArtists, setSelectedArtists]: any = useState([]);
+  const [dataLoaded, setDataLoaded]: any = useState(false);
+  const navigation: any = useNavigation();
+  const { selectedArtists: globalSelectedArtists }: any = useArtistContext();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const artists = await getAllArtists();
+        const artists: any = await getAllArtists();
         setTopArtists(artists || []);
       } catch (error) {
         console.error('Error fetching artists:', error);
@@ -30,25 +35,25 @@ export function ArtistsGroup({ addSelectedArtist, clearSelectedArtists, ...rest 
     }
   }, []);
 
-  const handleLongPress = (artist) => {
+  const handleLongPress = (artist: any) => {
     const isArtistSelected = selectedArtists.includes(artist);
 
     if (isArtistSelected) {
-      setSelectedArtists((prevSelectedArtists) =>
-        prevSelectedArtists.filter((a) => a !== artist)
+      setSelectedArtists((prevSelectedArtists: any) =>
+        prevSelectedArtists.filter((a: any) => a !== artist)
       );
       clearSelectedArtists(artist);
     } else {
-      setSelectedArtists((prevSelectedArtists) => [...prevSelectedArtists, artist]);
+      setSelectedArtists((prevSelectedArtists: any) => [...prevSelectedArtists, artist]);
       addSelectedArtist(artist);
     }
   };
 
   return (
     <ScrollView padding={9} showsVerticalScrollIndicator={false} centerContent>
-      <SimpleGrid columns={{ base: 3, md: 1 }} spacing={2} >
-        {topArtists.map((artist, index) => (
-          <GestureHandlerRootView key={index}>
+      <SimpleGrid columns ={3/*{ base: 3, md: 1 }*/} space={2} >
+        {topArtists.map((artist: any, index: any) => (
+          <GestureHandlerRootView>
             <LongPressGestureHandler
               onHandlerStateChange={({ nativeEvent }) => {
                 if (nativeEvent.state === State.ACTIVE) {
@@ -86,7 +91,7 @@ export function ArtistsGroup({ addSelectedArtist, clearSelectedArtists, ...rest 
                         right={0}
                         bottom={0}
                       >
-                        <CheckSvg color="white" marginTop={-30} />
+                        <CheckSvg color="white" style={{marginTop: -30}} />
                       </Center>
                     )}
                     <Center>
