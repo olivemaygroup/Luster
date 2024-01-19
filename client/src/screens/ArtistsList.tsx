@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ScrollView, VStack } from 'native-base';
 import Check from '@assets/check.svg';
-import { ArtistsGroup } from '@components/ArtistsGroup';
+import { ArtistsGroup } from '../components/ArtistsGroup';
 import { useNavigation } from '@react-navigation/native';
-import { useArtistContext } from '@contexts/ArtistContext';
+import useArtistContext from '../contexts/ArtistContext'
 
 export function ArtistsList() {
   const navigation = useNavigation();

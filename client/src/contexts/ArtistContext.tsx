@@ -1,17 +1,22 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-const ArtistContext = createContext();
+const ArtistContext = createContext(): any;
 
-export const ArtistProvider = ({ children }) => {
+type Artist = {
+  id: any;
+  name: string;
+}
+
+export const ArtistProvider: React.FC = ({ children }) => {
   const [selectedArtists, setSelectedArtists] = useState([]);
   const [favoriteArtistsNames, setFavoriteArtistsNames] = useState([]);
 
-  const addSelectedArtist = (artist) => {
+  const addSelectedArtist = (artist: Artist) => {
     setSelectedArtists([...selectedArtists, artist]);
   };
 
-  const removeSelectedArtist = (artist) => {
-    setSelectedArtists(selectedArtists.filter((a) => a.id !== artist.id));
+  const removeSelectedArtist = (artist: Artist) => {
+    setSelectedArtists(selectedArtists.filter((a: any) => a.id !== artist.id));
   };
 
   const clearSelectedArtists = (clear = true) => {
@@ -19,7 +24,7 @@ export const ArtistProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const names = selectedArtists.map((artist) => artist.name);
+    const names = selectedArtists.map((artist: Artist) => artist.name);
     setFavoriteArtistsNames(names);
   }, [selectedArtists]);
 
