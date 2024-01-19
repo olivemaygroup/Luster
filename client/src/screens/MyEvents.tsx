@@ -3,10 +3,13 @@ import { Image, Text, VStack, Box, HStack, ScrollView, Pressable, Heading } from
 import LocationSvg from "@assets/location.svg";
 import ArrowSvg from '@assets/arrow.svg';
 import { useNavigation } from '@react-navigation/native';
-import { getUpcomingEvents } from '@services/ticketmasterService';
+import { getUpcomingEvents } from "../services/ticketmasterService";
 
 
-export function MyEvents({location, date}) {
+export function MyEvents({location, date}: {
+  location: string;
+  date: Date;
+}) {
   const navigation = useNavigation();
   const [eventsData, setEventsData] = useState([]);
 
@@ -15,9 +18,9 @@ export function MyEvents({location, date}) {
       try {
         const events = await getUpcomingEvents(location, date);
 
-      events.sort((a, b) => {
-        const dateA = new Date(`${a.month} ${a.day}`);
-        const dateB = new Date(`${b.month} ${b.day}`);
+      events.sort((a:any, b:any) => {
+        const dateA:any = new Date(`${a.month} ${a.day}`);
+        const dateB:any = new Date(`${b.month} ${b.day}`);
         return dateA - dateB;
       });
 
@@ -44,7 +47,7 @@ export function MyEvents({location, date}) {
             </Text>
         </Box>
         <VStack px={2} py={1}>
-          {eventsData.map((event, index) => (
+          {eventsData.map((event:any, index:number) => (
             <Box borderRadius={2}>
                 <HStack space={4} width="100%" alignItems="center" px={4} py={1}>
                   <Box height={95} width={75}borderRadius={8} overflow="hidden" marginTop={6}>

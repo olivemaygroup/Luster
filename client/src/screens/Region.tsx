@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Image, Text, Box, VStack, Input, Icon, Center, Button, ScrollView, Pressable } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -11,16 +11,19 @@ import { useForegroundPermissions, watchPositionAsync, LocationAccuracy, Locatio
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Loading } from '@components/Loading';
-import { getAddressLocation } from '@utils/getAddressLocation';
+import { Loading } from '../components/Loading';
+import { getAddressLocation } from '../utils/getAddressLocation';
 
-
-export function Region({ setLocation }) {
+type currAddType= ReactNode & {
+  latitude: any;
+  longitude: any;
+}
+export function Region({ setLocation }:any) {
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions();
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentAddress, setCurrentAddress] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState('');
+  const [currentAddress, setCurrentAddress] = useState< currAddType>({});
+  const [inputValue, setInputValue] = useState<string | object >('');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [clearInput, setClearInput] = useState(false);
   const navigation = useNavigation();
@@ -61,7 +64,7 @@ export function Region({ setLocation }) {
         timeInterval: 1000,
       }, (location) => {
         getAddressLocation(location.coords)
-          .then((address) => {
+          .then((address:any) => {
             if (address) {
               setCurrentAddress(address);
             }
@@ -84,7 +87,7 @@ export function Region({ setLocation }) {
 
       let location;
 
-      if (inputValue.trim() === '' || inputValue === currentAddress) {
+      if (typeof inputValue === 'string' && inputValue.trim() === '' || inputValue === currentAddress) {
         location = await getAddressLocation({
           latitude: currentAddress.latitude || 0,
           longitude: currentAddress.longitude || 0,
@@ -129,7 +132,7 @@ export function Region({ setLocation }) {
     try {
       let location;
 
-      if (inputValue.trim() === '' && currentAddress) {
+      if (typeof inputValue === 'string' && inputValue.trim() === '' && currentAddress) {
 
         location = await getAddressLocation({
           latitude: currentAddress.latitude || 0,
