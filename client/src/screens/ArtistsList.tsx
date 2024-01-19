@@ -9,6 +9,7 @@ export function ArtistsList() {
   const navigation = useNavigation();
   const { selectedArtists, addSelectedArtist, clearSelectedArtists } = useArtistContext();
   const [isInFavoritesScreen, setIsInFavoritesScreen] = useState(false);
+  
 
   const handleNavigateToFavorites = () => {
     clearSelectedArtists(false);

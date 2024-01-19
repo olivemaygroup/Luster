@@ -4,14 +4,13 @@ import { Linking } from 'react-native';
 import MapImg from '@assets/map.png';
 import Calendar from '@assets/calendar.svg';
 import LocationSvg from "@assets/location.svg";
-import { getEvents } from '@services/ticketmasterService';
-import { getUpcomingEvents, ticketmasterUrl, googleMapsUrl } from '@services/ticketmasterService';
+import { getEvents } from "../services/ticketmasterService";
+import { getUpcomingEvents } from '../services/ticketmasterService';
 
 
 
-export function EventsDetails({location, date}) {
-  const [eventsData, setEventsData] = useState([]);
-
+export function EventsDetails({location, date}:any) {
+  const [eventsData, setEventsData] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +29,7 @@ export function EventsDetails({location, date}) {
 
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise <any>  => {
       try {
         const events = await getUpcomingEvents(location, date);
 
@@ -44,7 +43,7 @@ export function EventsDetails({location, date}) {
   }, []);
 
   const handleBuyTicket = () => {
-    if (event && event.ticketmasterUrl) {
+    if (event && event.ticketmasterUrl){
       Linking.openURL(event.ticketmasterUrl);
     } else {
       console.error('Ticketmaster URL is not available.');
