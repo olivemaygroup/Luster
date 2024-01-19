@@ -12,15 +12,18 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Loading } from '@components/Loading';
-import { getAddressLocation } from '@utils/getAddressLocation';
+import { Loading } from '../components/Loading';
+import { getAddressLocation } from '../utils/getAddressLocation';
 
-import { ArtistsFeed } from '@components/ArtistsFeed';
-import { EventsDisplay } from '@components/EventsDisplay';
-import { UpcomingEvents } from '@components/UpcomingEvents';
+import { ArtistsFeed } from '../components/ArtistsFeed';
+import { EventsDisplay } from '../components/EventsDisplay';
+import { UpcomingEvents } from '../components/UpcomingEvents';
 
 
-export function EventsFeed( {location, date} ) {
+export function EventsFeed( {location, date}: {
+  location: any;
+  date: Date;
+}): React.JSX.Element {
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions();
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);

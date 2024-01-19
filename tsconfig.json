@@ -1,7 +1,6 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    // Sorting es6 vs classic
     "esModuleInterop": true,
     "jsx": "react",
     "strict": true,

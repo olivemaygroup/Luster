@@ -5,36 +5,41 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BackgroundDateImg from '@assets/DateScreenImg.png';
 import { useNavigation } from '@react-navigation/native';
-import { getTestEndpointData } from '@services/spotifyService';
+// import { getTestEndpointData } from '../services/spotifyService';
 
+type DateSelectionProps = {
+  setDate: React.Dispatch<React.SetStateAction<Date>>;
+}
 
+export function DateSelection ({ setDate }: DateSelectionProps) {
+  type selectedDatesType = Date[];
 
-export function DateSelection({ setDate }) {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedDates, setSelectedDates] = useState([]);
+  const [selectedDates, setSelectedDates] = useState<selectedDatesType>([]);
   const [inputValue, setInputValue] = useState('');
   const [today, setToday] = useState(new Date());
+
   const navigation = useNavigation();
 
 
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const testEndpointData = await getTestEndpointData();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const testEndpointData = await getTestEndpointData();
 
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
 
-  const onChangeDate = (_event, selected) => {
+  const onChangeDate = (_event: any, selected: any) => {
     if (_event.type === 'set' && selected) {
       setSelectedDate(selected);
 
@@ -42,11 +47,12 @@ export function DateSelection({ setDate }) {
     setShowDatePicker(false);
   };
 
+  
 
   const exploreEvents = async () => {
     try {
       await AsyncStorage.setItem('selectedDates', JSON.stringify(selectedDates));
-      navigation.navigate('events_feed', { selectedDates });
+      navigation.navigate('./events_feed', { selectedDates });
 
 
     } catch (error) {
@@ -55,8 +61,8 @@ export function DateSelection({ setDate }) {
   };
 
 
-  const isDateSelected = (date) => {
-    return selectedDates.some((selected) => selected.toDateString() === date.toDateString());
+  const isDateSelected = (date: Date) => {
+    return selectedDates.some((selected: any) => selected.toDateString() === date.toDateString());
   };
 
   return (
