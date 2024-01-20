@@ -3,22 +3,22 @@ import { Platform } from 'react-native';
 import { useTheme } from 'native-base';
 
 import { createBottomTabNavigator, BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import { Welcome } from '@screens/Welcome';
-import { Region } from '@screens/Region';
-import { DateSelection } from '@screens/DateSelection';
-import { EventsFeed } from '@screens/EventsFeed';
-import { MyEvents } from '@screens/MyEvents';
-import { EventsDetails } from '@screens/EventsDetails';
-import { ArtistsList } from '@screens/ArtistsList';
-import { FavoritesArtistsList } from '@screens/FavoritesArtistsList';
+import { Welcome } from '../screens/Welcome';
+import { Region } from '../screens/Region';
+import { DateSelection } from '../screens/DateSelection';
+import { EventsFeed } from '../screens/EventsFeed';
+import { MyEvents } from '../screens/MyEvents';
+import { EventsDetails } from '../screens/EventsDetails';
+import { ArtistsList } from '../screens/ArtistsList';
+import { FavoritesArtistsList } from '../screens/FavoritesArtistsList';
 
 
-import LocationSvg  from '@assets/location.svg';
-import CalendarSvg  from '@assets/calendar.svg';
-import HomeSvg  from '@assets/home.svg';
-import ListBullets  from '@assets/list.svg';
-import ArtistsSvg  from '@assets/artists.svg';
-import FavoritesSvg  from '@assets/favorites.svg';
+import LocationSvg  from '../assets/location.svg';
+import CalendarSvg  from '../assets/calendar.svg';
+import HomeSvg  from '../assets/home.svg';
+import ListBullets  from '../assets/list.svg';
+import ArtistsSvg  from '../assets/artists.svg';
+import FavoritesSvg  from '../assets/favorites.svg';
 
 
 
@@ -42,8 +42,8 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 export function AppRoutes () {
 
   const { sizes, colors } = useTheme();
-  const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
-  const [date, setDate] = useState();
+  const [location, setLocation] = useState<any>({ latitude: 0, longitude: 0 });
+  const [date, setDate] = useState<any>();
 
   const iconSize = sizes[6];
 

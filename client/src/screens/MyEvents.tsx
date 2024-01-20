@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, VStack, Box, HStack, ScrollView, Pressable, Heading, stylingProps } from "native-base";
-import LocationSvg from "@assets/location.svg";
-import ArrowSvg from '@assets/arrow.svg';
+import LocationSvg from "../assets/location.svg";
+import ArrowSvg from '../assets/arrow.svg';
 import { useNavigation } from '@react-navigation/native';
 import { getUpcomingEvents } from "../services/ticketmasterService";
 
@@ -82,7 +82,7 @@ export function MyEvents({location, date}: {
                         {`${event.venue}, ${event.city} - ${event.country}`}
                       </Text>
                     </HStack>
-                    <ArrowSvg width={24} height={24} fill="#FFFFFF" position="absolute" top={62} right={18} />
+                    <ArrowSvg width={24} height={24} fill="#FFFFFF" style={{position:"absolute", top:62, right:18}} />
                   </VStack>
                 </HStack>
 

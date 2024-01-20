@@ -20,7 +20,7 @@ router.get('/api/spotify-credentials', async (req, res, next) => {
     }
 
 
-    res.status(200).json({ accessToken: cachedToken.accessToken });fisgen
+    res.status(200).json({ accessToken: cachedToken.accessToken });
   } catch (error) {
     console.error('Error getting Spotify credentials:', error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -1,18 +1,14 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { Image, Text, Box, VStack, Input, Icon, Center, Button, ScrollView, Pressable } from 'native-base';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import BackgroundImg from '@assets/Background.png';
-import Search from '@assets/search.svg';
-
+import BackgroundImg from '../assets/Background.png';
+import Search from '../assets/search.svg';
 import { useNavigation } from '@react-navigation/native';
-
 import { useForegroundPermissions, watchPositionAsync, LocationAccuracy, LocationSubscription } from 'expo-location';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { Loading } from '../components/Loading';
 import { getAddressLocation } from '../utils/getAddressLocation';
+
 
 type currAddType = ReactNode & {
   latitude: any;
@@ -22,7 +18,7 @@ export function Region({ setLocation }:any) {
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions();
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentAddress, setCurrentAddress] = useState< currAddType>({});
+  const [currentAddress, setCurrentAddress] = useState<currAddType>();
   const [inputValue, setInputValue] = useState<string | object >('');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [clearInput, setClearInput] = useState(false);
@@ -83,7 +79,7 @@ export function Region({ setLocation }:any) {
 
   const handleSearch = async () => {
     try {
-      setIsLoading(true); // Ativar o carregamento
+      setIsLoading(true); 
 
       let location;
 
@@ -250,8 +246,7 @@ export function Region({ setLocation }:any) {
               locations={[0, 0.85, 0.5, 1]}
               start={[0, 0]}
               end={[1, 0]}
-              style={{ borderRadius: 8, overflow: 'hidden'}}
-              marginBottom={42}
+              style={{ borderRadius: 8, overflow: 'hidden', marginBottom:42}}
             >
               <Button
                 onPress={handleNext}

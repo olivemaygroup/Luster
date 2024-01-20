@@ -9,6 +9,7 @@ import { useArtistContext } from '../contexts/ArtistContext';
 type AGPropsType = PropsWithChildren & {
   addSelectedArtist: (artist: any)=>void;
   clearSelectedArtists: (artist: any)=>void;
+  isInFavoritesScreen:(boolean);
 }
 
 export function ArtistsGroup({ addSelectedArtist, clearSelectedArtists, ...rest }: AGPropsType) {

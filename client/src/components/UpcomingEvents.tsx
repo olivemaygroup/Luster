@@ -1,18 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, VStack, Box, HStack, ScrollView, Pressable } from "native-base";
 import { LinearGradient } from "expo-linear-gradient";
-import LocationSvg from "@assets/location.svg";
-import ArrowSvg from '@assets/arrow.svg';
+import LocationSvg from "../assets/location.svg";
+import ArrowSvg from '../assets/arrow.svg';
 import { useNavigation } from '@react-navigation/native';
-import { getUpcomingEvents } from '@services/ticketmasterService';
+import { getUpcomingEvents } from '../services/ticketmasterService';
 
+type Props = {
+  location: any;
+  date: any;
+}
 
-export function UpcomingEvents({ location, date }) {
-  const navigation = useNavigation();
-  const [eventsData, setEventsData] = useState([]);
+type EVTProps = {
+  image: any;
+  day: any;
+  month: any;
+  eventName: any;
+  venue: any;
+  city: any;
+  country: any;
+
+}
+
+export function UpcomingEvents({ location, date }:Props):React.FC<Props> {
+  const navigation: any = useNavigation();
+  const [eventsData, setEventsData] = useState<EVTProps[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise <any> => {
       try {
         const events = await getUpcomingEvents(location, date);
 
@@ -29,27 +44,26 @@ export function UpcomingEvents({ location, date }) {
     <ScrollView showsHorizontalScrollIndicator={false} >
       <Pressable
          onPress={() => {
-
           navigation.navigate('event_details');
         }}
       >
         <VStack mt={4}>
           {eventsData.map((event, index) => (
 
-            <Box borderRadius={2}>
+            <Box key={index} borderRadius={2}>
               <LinearGradient
-                key={index}
                 colors={['#6D50A0', '#E983F7', '#EC84F9', '#F687FF']}
                 locations={[0, 0.85, 0.5, 1]}
                 start={[0, 0]}
                 end={[1, 0]}
-                width={390}
-                height={160}
-                mb={4}
-                marginLeft={3}
-                marginRight={3}
-                marginBottom={16}
-                borderRadius={6}
+                style={{
+                  width: 390, 
+                  height:160,
+                  marginLeft:3,
+                  marginRight:3,
+                  marginBottom:16,
+                  borderRadius:6,
+                }}
               >
                 <HStack space={4} width="100%" alignItems="center" px={4} py={1}>
                   <Box height={95} width={75}borderRadius={8} overflow="hidden" marginTop={6}>
@@ -84,7 +98,7 @@ export function UpcomingEvents({ location, date }) {
                         {`${event.venue}, ${event.city} - ${event.country}`}
                       </Text>
                     </HStack>
-                    <ArrowSvg width={24} height={24} fill="#FFFFFF" position="absolute" top={62} right={18} />
+                    <ArrowSvg width={24} height={24} fill="#FFFFFF" style={{position: 'absolute', top: 62, right: 18}} />
                   </VStack>
                 </HStack>
               </LinearGradient>

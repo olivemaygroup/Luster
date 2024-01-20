@@ -3,13 +3,13 @@ import React, { useEffect } from 'react';
 import { VStack, HStack, Image, Text } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 
-import LogoSvg from '@assets/logo.svg'
-import BackgroundImg from '@assets/Background.png'
+import LogoSvg from '../assets/logo.svg'
+import BackgroundImg from '../assets/Background.png'
 
 
 export function Welcome() {
 
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
 
   useEffect(() => {
 
