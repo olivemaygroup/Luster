@@ -23,13 +23,13 @@ import { UpcomingEvents } from '../components/UpcomingEvents';
 export function EventsFeed( {location, date}: {
   location: any;
   date: Date;
-}): React.JSX.Element {
+}) {
   const [locationForegroundPermission, requestLocationForegroundPermission] = useForegroundPermissions();
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     requestLocationForegroundPermission();
