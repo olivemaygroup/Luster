@@ -140,7 +140,7 @@ export function EventsFeed( {location, date}: {
           FEATURED
         </Text>
 
-        <EventsDisplay location={location} />
+        <EventsDisplay location={location} date={date}/>
 
 
         <Text color="gray.100" fontSize="lg" fontWeight={700} marginTop={4}>

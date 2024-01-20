@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, Text, VStack, Box, HStack, ScrollView, Pressable, Heading } from "native-base";
+import { Image, Text, VStack, Box, HStack, ScrollView, Pressable, Heading, stylingProps } from "native-base";
 import LocationSvg from "@assets/location.svg";
 import ArrowSvg from '@assets/arrow.svg';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +10,7 @@ export function MyEvents({location, date}: {
   location: string;
   date: Date;
 }) {
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
   const [eventsData, setEventsData] = useState([]);
 
   useEffect(() => {
