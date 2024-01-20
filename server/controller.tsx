@@ -1,13 +1,47 @@
-const { Router } = require('express');
-const fetch = require('node-fetch');
-const { clientId, clientSecret, redirectUri } = require('../secret');
 
 
-const router = Router();
+interface CTType {
+  expiresAt: any;
+  accessToken: any;
+}
+let cachedToken: CTType;
 
-let cachedToken;
+function capitalizeFirstLetter(string:string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-router.get('/api/spotify-credentials', async (req, res, next) => {
+function isGenre(artistName:string) {
+  const genres = ['pop', 'rock', 'metal', 'reggae', 'indie', 'folk', 'soul', 'jazz', 'blues'];
+  return genres.some((genre) => artistName.includes(genre));
+}
+
+async function getArtistData(artistId:any, token:any) {
+  const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  return await response.json();
+}
+
+async function getToken(clientId:any, clientSecret:any) {
+  const response = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    body: new URLSearchParams({
+      'grant_type': 'client_credentials',
+    }),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Basic ' + (Buffer.from(`${clientId}:${clientSecret}`).toString('base64')),
+    },
+  });
+
+  return await response.json();
+}
+
+exports.getCredentials = async (req: any, res: any): Promise <any> => {
   try {
     const spotifyCredentials = { clientId, clientSecret, redirectUri };
 
@@ -19,15 +53,15 @@ router.get('/api/spotify-credentials', async (req, res, next) => {
       };
     }
 
-
-    res.status(200).json({ accessToken: cachedToken.accessToken });fisgen
+    res.status(200).json({ accessToken: cachedToken.accessToken });/*fisgen - no clue what this is!*/
   } catch (error) {
     console.error('Error getting Spotify credentials:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+}
 
-router.get('/api/top-artists', async (req, res) => {
+
+exports.getArtists = async (req:any, res:any) => {
   try {
     const token = cachedToken.accessToken;
 
@@ -36,7 +70,6 @@ router.get('/api/top-artists', async (req, res) => {
       res.status(500).json({ error: 'Access token not available.' });
       return;
     }
-
 
     const response = await fetch('https://api.spotify.com/v1/search?type=artist&limit=10&sort=popularity', {
       headers: {
@@ -52,16 +85,14 @@ router.get('/api/top-artists', async (req, res) => {
       return;
     }
 
-
     const topArtists = data.artists && data.artists.items
       ? data.artists.items
       : [];
 
-
     const filteredTopArtists = topArtists
-      .filter((artist) => !!artist.name)
+      .filter((artist:any) => !!artist.name)
       .sort(() => Math.random() - 0.5)
-      .map((artist) => ({
+      .map((artist:any) => ({
         name: capitalizeFirstLetter(artist.name),
         image: artist.images && artist.images.length > 0
           ? artist.images[0].url
@@ -73,43 +104,4 @@ router.get('/api/top-artists', async (req, res) => {
     console.error('Error fetching top artists:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
-
-
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function isGenre(artistName) {
-  const genres = ['pop', 'rock', 'metal', 'reggae', 'indie', 'folk', 'soul', 'jazz', 'blues'];
-  return genres.some((genre) => artistName.includes(genre));
-}
-
-async function getArtistData(artistId, token) {
-  const response = await fetch(`https://api.spotify.com/v1/artists/${artistId}`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-
-  return await response.json();
-}
-
-async function getToken(clientId, clientSecret) {
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    body: new URLSearchParams({
-      'grant_type': 'client_credentials',
-    }),
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + (Buffer.from(`${clientId}:${clientSecret}`).toString('base64')),
-    },
-  });
-
-  return await response.json();
-}
-
-module.exports = router;
+};

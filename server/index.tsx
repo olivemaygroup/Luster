@@ -1,21 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const router = require('./router');
-
+const PORT = process.env.PORT;
 
 const app = express();
 
-app.use(bodyParser.json());
-
-
-app.use(cors());
-
-app.use('/', router);
-
-
-const PORT = 3001;
-
-app.listen(PORT, () => {
+app.use(express.json())
+  .use(cors())
+  .use('/', router)
+  .listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);
 });
