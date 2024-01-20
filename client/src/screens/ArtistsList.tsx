@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import useArtistContext from '../contexts/ArtistContext'
 
 export function ArtistsList() {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const { selectedArtists, addSelectedArtist, clearSelectedArtists } = useArtistContext();
   const [isInFavoritesScreen, setIsInFavoritesScreen] = useState(false);
   

@@ -25,7 +25,7 @@ export function FavoritesArtistsList() {
   return (
     <ScrollView padding={6} showsVerticalScrollIndicator={false} centerContent>
       {selectedArtists.map((artist:any, index:number) => (
-        <FavoritesArtists key={index} artist={artist} isInArtistsList={false} />
+        <FavoritesArtists key={index} artist={artist}  />
       ))}
     </ScrollView>
   );

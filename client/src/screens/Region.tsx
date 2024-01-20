@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Loading } from '../components/Loading';
 import { getAddressLocation } from '../utils/getAddressLocation';
 
-type currAddType= ReactNode & {
+type currAddType = ReactNode & {
   latitude: any;
   longitude: any;
 }
@@ -26,7 +26,7 @@ export function Region({ setLocation }:any) {
   const [inputValue, setInputValue] = useState<string | object >('');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
   const [clearInput, setClearInput] = useState(false);
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
 
   useEffect(() => {
     requestLocationForegroundPermission();

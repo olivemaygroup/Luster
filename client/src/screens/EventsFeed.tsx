@@ -29,7 +29,7 @@ export function EventsFeed( {location, date}: {
   const [currentAddress, setCurrentAddress] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
 
   useEffect(() => {
     requestLocationForegroundPermission();
@@ -140,7 +140,7 @@ export function EventsFeed( {location, date}: {
           FEATURED
         </Text>
 
-        <EventsDisplay location={location} />
+        <EventsDisplay location={location} date={date}/>
 
 
         <Text color="gray.100" fontSize="lg" fontWeight={700} marginTop={4}>

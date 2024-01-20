@@ -20,7 +20,7 @@ export function DateSelection ({ setDate }: DateSelectionProps) {
   const [inputValue, setInputValue] = useState('');
   const [today, setToday] = useState(new Date());
 
-  const navigation = useNavigation();
+  const navigation : any = useNavigation();
 
 
 
