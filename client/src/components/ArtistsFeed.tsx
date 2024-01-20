@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, Box, Pressable, HStack, ScrollView, Center } from "native-base";
 import { useNavigation } from '@react-navigation/native';
-import { getTopArtists } from '../services/spotifyService.js';
+import { getTopArtists } from '../services/spotifyService';
 
 
 export function ArtistsFeed({ ...rest }) {

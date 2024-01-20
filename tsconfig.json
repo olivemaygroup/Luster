@@ -2,9 +2,11 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "esModuleInterop": true,
+    "module": "esnext",
+    "target": "es2015",
     "jsx": "react",
     "strict": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@dtos/*": [
         "src/dtos/*"
@@ -37,5 +39,9 @@
         "./src/routes/*"
       ]
     }
-  }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

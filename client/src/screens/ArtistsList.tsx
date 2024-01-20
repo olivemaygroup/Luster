@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { ScrollView, VStack } from 'native-base';
-import Check from '@assets/check.svg';
+import Check from '../assets/check.svg';
 import { ArtistsGroup } from '../components/ArtistsGroup';
 import { useNavigation } from '@react-navigation/native';
-import useArtistContext from '../contexts/ArtistContext'
+import { useArtistContext } from '../contexts/ArtistContext'
 
 export function ArtistsList() {
   const navigation: any = useNavigation();
-  const { selectedArtists, addSelectedArtist, clearSelectedArtists } = useArtistContext();
+  const artistContext= useArtistContext()
+  const { selectedArtists, addSelectedArtist, clearSelectedArtists } = artistContext;
   const [isInFavoritesScreen, setIsInFavoritesScreen] = useState(false);
   
 
@@ -29,11 +30,12 @@ export function ArtistsList() {
         />
 
         <Check
-          position="absolute"
-          top={45}
-          right={16}
-          width={38}
-          height={38}
+          style={{position: 'absolute',
+          top: 45,
+          right: 16,
+          width: 38,
+          height: 38,
+          }}
           onPress={handleNavigateToFavorites}
         />
       </VStack>

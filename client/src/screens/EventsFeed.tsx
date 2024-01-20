@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, Box, VStack, Input, Icon, Center, ScrollView } from 'native-base';
-import Search from '@assets/search.svg';
+import Search from '../assets/search.svg';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -147,7 +147,7 @@ export function EventsFeed( {location, date}: {
           MORE EVENTS
         </Text>
 
-        <UpcomingEvents location={location}  />
+        <UpcomingEvents location={location} date={date} />
 
       </VStack>
     </ScrollView>

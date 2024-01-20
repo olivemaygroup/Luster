@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Image, VStack, Text, Box, HStack, Pressable, Button } from "native-base";
 import { Linking } from 'react-native';
-import MapImg from '@assets/map.png';
-import Calendar from '@assets/calendar.svg';
-import LocationSvg from "@assets/location.svg";
+import MapImg from '../assets/map.png';
+import Calendar from '../assets/calendar.svg';
+import LocationSvg from "../assets/location.svg";
 import { getEvents } from "../services/ticketmasterService";
 import { getUpcomingEvents } from '../services/ticketmasterService';
 
@@ -127,7 +127,7 @@ export function EventsDetails({location, date}:any) {
         </Text>
         <Pressable onPress={handleOpenGoogleMaps}>
             <Image
-              source={require('@assets/map.png')}
+              source={require('../assets/map.png')}
               style={{
                 height: 180,
                 width: 370,

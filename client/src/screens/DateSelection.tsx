@@ -3,9 +3,9 @@ import { VStack, Image, Text, Button, Pressable, Center, Box, HStack } from 'nat
 import { LinearGradient } from 'expo-linear-gradient';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import BackgroundDateImg from '@assets/DateScreenImg.png';
+import BackgroundDateImg from '../assets/DateScreenImg.png';
 import { useNavigation } from '@react-navigation/native';
-// import { getTestEndpointData } from '../services/spotifyService';
+import { getTestEndpointData } from '../services/spotifyService';
 
 type DateSelectionProps = {
   setDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -25,18 +25,18 @@ export function DateSelection ({ setDate }: DateSelectionProps) {
 
 
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const testEndpointData = await getTestEndpointData();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const testEndpointData = await getTestEndpointData();
 
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
 
   const onChangeDate = (_event: any, selected: any) => {
@@ -95,8 +95,7 @@ export function DateSelection ({ setDate }: DateSelectionProps) {
         locations={[0, 0.85, 0.5, 1]}
         start={[0, 0]}
         end={[1, 0]}
-        style={{ borderRadius: 8, overflow: 'hidden'}}
-        marginBottom={42}
+        style={{ borderRadius: 8, overflow: 'hidden', marginBottom: 42}}
         >
 
           <Button

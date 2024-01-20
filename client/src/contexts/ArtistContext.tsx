@@ -2,24 +2,35 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, ChildContextProvider, PropsWithChildren } from 'react';
 
-const ArtistContext = createContext<Promise<any> | undefined>(undefined);
+
+const ArtistContext = createContext<ArtistContextType | null>(null);
 
 interface Artist {
   id: any;
   name: string;
 }
 
-export const ArtistProvider: React.FC = ({ children }:PropsWithChildren) => {
-  const [selectedArtists, setSelectedArtists] = useState([]);
-  const [favoriteArtistsNames, setFavoriteArtistsNames] = useState([]);
+interface ArtistContextType {
+  selectedArtists: Artist[];
+  addSelectedArtist: (artist: Artist) => void;
+  removeSelectedArtist: (artist: Artist) => void;
+  clearSelectedArtists: (clear?: boolean) => void;
+  favoriteArtistsNames: string[];
+
+}
+
+
+export const ArtistProvider: React.FC<{children: ReactNode}> = ({ children }) => {
+  const [selectedArtists, setSelectedArtists] = React.useState<Artist[]>([]);
+  const [favoriteArtistsNames, setFavoriteArtistsNames] = React.useState<string[]>([]);
 
   const addSelectedArtist = (artist: Artist) => {
-    // setSelectedArtists([...selectedArtists, artist]);
-    setSelectedArtists((prevSelectedArtists):any=> [...prevSelectedArtists, artist]);
+    setSelectedArtists([...selectedArtists, artist]);
+    // setSelectedArtists((prevSelectedArtists) => [...prevSelectedArtists, artist]);
   };
 
   const removeSelectedArtist = (artist: Artist) => {
-    setSelectedArtists(selectedArtists.filter((a: any) => a.id !== artist.id));
+    setSelectedArtists(selectedArtists.filter((a) => a.id !== artist.id));
   };
 
   const clearSelectedArtists = (clear = true) => {
@@ -27,7 +38,7 @@ export const ArtistProvider: React.FC = ({ children }:PropsWithChildren) => {
   };
 
   useEffect(() => {
-    const names: any = selectedArtists.map((artist: Artist) => artist.name);
+    const names: string[] = selectedArtists.map((artist: Artist) => artist.name);
     setFavoriteArtistsNames(names);
   }, [selectedArtists]);
 
@@ -47,5 +58,9 @@ export const ArtistProvider: React.FC = ({ children }:PropsWithChildren) => {
 };
 
 export const useArtistContext = () => {
-  return useContext(ArtistContext);
+  const context = useContext(ArtistContext);
+  if (!context) {
+    throw new Error('useArtistContext must be used within an ArtistProvider')
+  }
+  return context;
 };
